@@ -1,0 +1,9 @@
+Q1. is there any level of vectorization in GPU? -> No
+Q2. when doing threading, where is those thread stack? -> register
+Q3. can we think of a GPU as a vectorization unit, with mask operation? 
+
+1. GPU can only execute vectorized code.
+2. GPU has a huge amount of registers to keep many threads for a single ALU
+3. When programming in cuda, it 
+4. A kernel should be large enough to hide the function-load time > (function go into stack)
+5. Cuda will automatic paddinig if block size is not a multiple of 32

@@ -1,0 +1,39 @@
+memory flush
+hyper threading
+
+allocate memory for each thread
+
+operating system, threads scheduling
+
+
+ 1. master thread is the same physical threads along the program 
+ 2. nested parallelism -> the thread fork a lot of threads is the master threads for that region
+ 3. a flush keeps the cache line belongs to one thread consistent with the memory, and the memory consistent with its cache line
+ 4. a flush is a "barrier" that compiler optimization can not reorder over
+ 5. flush is usually only used in point-to-point communication between threads, to do a point-to-point communication with a flush
+    producer: (1) produce job (modify the data)
+              (2) a full flush
+              (3) update the flag
+              (4) flush the flag
+    consumer: (1) while loop (flush the flag)
+              (2) full flush
+ 6. hardware binding for OpenMP is very critical
+    -OMP_PROC_BIND   ture|false   ->   don't switch threads on different cores
+ 7. if malloc is called in a shared omp region, then the array is shared. if 
+ 8. private      -> create a copy of the data in each thread, don't initialize
+    firstprivate -> create a copy of the data in each thread, initialize with original value
+    lastprivate  -> the final value of a variable is written by the thread last executing a parallel loop
+ 9. going to xscale machine:
+    (1) cores consistently fail
+    (2) check point expensive
+    (3) processor cores running at different frequency -> dynamic load balancing
+10. when going into task, private will be turned into first private
+
+
+Q1. variables declared before openmp session is in process heap, (should it be process stack)? -> yes
+Q2. thread stack, is it like program? -> yes
+Q3. when swiching between threads on the same core, what happens in the caches? -> operation system do a flush before switching tasks
+Q4. what happens in the task "bag", is it a queue? -> it is not a queue
+Q5. is the "pragma omp task" putting the jobs on queue? -> seems to be when looks
+
+point to point -> flush, then why atomic update works?

@@ -1,0 +1,37 @@
+/**
+ *   
+ *   Charm Tutorial Exercise
+ *   Key-value store, reduction, sdag
+ *   
+ *
+ *
+ **/
+
+mainmodule main 
+{
+    readonly CProxy_Main mainProxy;
+    readonly CProxy_KeyValueStore kvstoreProxy;
+    readonly CProxy_KeyValueClient kvclientProxy;
+    readonly int N;
+    readonly int M;
+    readonly int K;
+
+	mainchare Main 
+    {
+		entry Main(CkArgMsg *m);
+		entry [reductiontarget] void finish();
+	};
+	
+	array [1D] KeyValueClient 
+    {
+		entry KeyValueClient();
+		entry void response (int refnum, int value, int resIdx);
+		entry void send_requests();
+	};
+
+	array [1D] KeyValueStore 
+    { 
+		entry KeyValueStore(); 
+		entry void request(int refnum, int k, int reqIdx);
+	};
+};

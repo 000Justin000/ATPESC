@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "Starting Cobalt job script"
+runjob --np 64 -p 16 --block $COBALT_PARTNAME --verbose=INFO : ./leanmd 4 4 4 1001

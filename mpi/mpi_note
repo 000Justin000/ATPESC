@@ -1,0 +1,31 @@
+communicator is the name for the group
+communicator in the same node -> shared memory communicator
+
+MPI_Type_continuous for sending stencils on the network
+MPI_struct
+MPI_Type_create_vector : specify block stride, mpi_old_type
+
+Advanced Topic:
+One sided communication -> There is no handshake
+1. part of memory becomes remotedly accessible -> called global access space (still need to specify the processor)
+2. logically the receive processor do not get involved in the process
+3. PUT, GET
+4. Realization
+    a. create public memory -> MPI_WIN_ALLOCATE                -> create a buffer, and make it remote accessible                      => MPI_WIN_ALLOCATE(MPI_Aint size, int disp_unit, MPI_Info info, MPI_Comm comm, void* baseptr, MPI_Win* win)
+                               MPI_WIN_CREATE                  -> make a allocated buffer remote accessible
+                               MPI_WIN_CREATE_DYNAMIC          -> declear a handle to an buffer that you may allocate later
+                               MPI_WIN_ALLOCATE_SHARED
+                               MPI_WIN_FREE                    -> for MPI_WIN_ALLOCATE -> free window and buffer, for MPI_WIN_CREATE -> free only window
+                               MPI_ALLOC_MEM                   -> can be used to allocate a memory buffer, which the compiler might optimize
+    b. origin <-> target
+    c. access public memory -> MPI_PUT                         -> take local memroy, put in public accessible memory                  => MPI_PUT(void* origin_addr, int origin_count, MPI_Datatype origin_dtype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_dtype, MPI_Win win)
+                               MPI_GET
+                               MPI_ACCUMULATE                  -> atomic put accumulate, order              ?
+                               MPI_GET_ACCUMULATE              -> atomic with respect to the basic datatype
+                               MPI_FETCH_AND_OP
+                               MPI_COMPARE_AND_SWAP
+    d.MPI_INFO                                                 -> guarantee (hint) for MPI compiler to optimize the code
+
+
+1. user pack is a little bit better than mpi_type_vector
+2. assertion in MPI one-sided communication makes little difference
