@@ -1,0 +1,27 @@
+Tools:
+    1. JIRA/Confluence -> project management system
+    2. Doxygen         -> documentation system
+
+Build:
+    1. configure.in
+    2. makefile.in
+
+Documentation:
+    1. users guide
+    2. refernce manual
+    3. readme
+    4. installation guide
+    5. tutorials
+
+Doxygen:
+    1. Doxygen: \**
+    2. \mainpage
+    3. \class
+    4. \brief
+    5. \note
+    6. \todo
+    7. \f$          -> latex command
+    8. \param       -> define a parameter
+
+Testing:
+    1. Make sure check all possibility input

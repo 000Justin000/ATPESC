@@ -158,7 +158,9 @@ int main(int argc,char **args)
      Set a user-defined "shell" preconditioner if desired
   */
   ierr = PetscOptionsGetBool(NULL,NULL,"-user_defined_pc",&user_defined_pc,NULL);CHKERRQ(ierr);
-  if (user_defined_pc) {
+  if (user_defined_pc) 
+  {
+    printf("PCSHELL\n");
     /* (Required) Indicate to PETSc that we're using a "shell" preconditioner */
     ierr = PCSetType(pc,PCSHELL);CHKERRQ(ierr);
 
@@ -180,8 +182,11 @@ int main(int argc,char **args)
     /* Note: This function could be set with PCShellSetSetUp and it would be called when necessary */
     ierr = SampleShellPCSetUp(pc,A,x);CHKERRQ(ierr);
 
-  } else {
-    ierr = PCSetType(pc,PCJACOBI);CHKERRQ(ierr);
+  } 
+  else 
+  {
+    printf("PCNONE\n");
+    ierr = PCSetType(pc,PCNONE);CHKERRQ(ierr);
   }
 
   /*

@@ -1,0 +1,6 @@
+Q1. Is it a good idea to explore the dependence of two steps for performance ?
+
+
+
+Dependence driven scheduler:
+    1. OpenMP 4.0 DAG. (on top of that, give hint to run-time mechanism)
